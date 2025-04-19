@@ -1,5 +1,6 @@
-import { ChevronRightIcon, TrashIcon } from "lucide-react";
+import { CheckIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 
 export default function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
   const navigate = useNavigate();
@@ -19,24 +20,20 @@ export default function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
             onClick={() => onTaskClick(task.id)}
             className={`${
               !task.isCompleted
-                ? "bg-slate-400 text-left w-full text-white p-2 rounded-md"
-                : "bg-slate-400 text-left w-full text-white p-2 rounded-md line-through"
+                ? "bg-slate-400 text-left w-full flex items-center gap-2 text-white p-2 rounded-md"
+                : "bg-slate-400 text-left w-full flex items-center gap-2 text-white p-2 rounded-md line-through"
             }`}
           >
+            {task.isCompleted && <CheckIcon />}
             {task.title}
           </button>
-          <button
-            onClick={() => onDetailsClick(task)}
-            className="bg-slate-400 text-white p-2 rounded-md"
-          >
+
+          <Button onClick={() => onDetailsClick(task)} title="Detalhar">
             <ChevronRightIcon />
-          </button>
-          <button
-            onClick={() => onDeleteTaskClick(task.id)}
-            className="bg-slate-400 text-white p-2 rounded-md"
-          >
+          </Button>
+          <Button onClick={() => onDeleteTaskClick(task.id)} title="Excluir">
             <TrashIcon />
-          </button>
+          </Button>
         </li>
       ))}
     </ul>
